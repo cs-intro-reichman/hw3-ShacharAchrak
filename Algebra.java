@@ -28,17 +28,23 @@ public class Algebra {
 		int sum = x1;
 		if(x1==0){
 			return x2;
+		}
 		
-		}   else{
-			    if(x2==0){
-			    return x1;
+		if(x2==0){
+			return x1;
+		}
 
-		}   else{
-		    	for(int i=0; i<x2; i++){
+		if(x2 > 0){
+			for(int i=0; i<x2; i++){
 				sum++;
 			}
+		}  else{
+			if(x2 < 0){
+		    	for(int i=0; i<x2; i++){
+				sum--;
+			}
 		  }
-		}
+	    } 
 		return sum;
 	}
 
@@ -48,12 +54,21 @@ public class Algebra {
 			    if(x2==0){
 			    return x1;
 
-		}   else{
+		    }
+
+			if(x2 > 0){
 		    	for(int i=0; i<x2; i++){
 					difference--;
+		     	}
+		      }
+		   else{
+			if(x2 < 0){
+		    	for(int i=0; i<x2; i++){
+					difference++;
 			}
 		  }
-		
+
+		}
 		return difference;
 	}
 
@@ -62,13 +77,15 @@ public class Algebra {
 		int product = 0;
 		if(x1==0 || x2 ==0){
 			return 0;
-		
-		}else{
-		    	for(int i=0; i<x2; i++){
+		}
+		if (x1 > 0 && x2 > 0 || x1 < 0 && x2 < 0){
+		    	for(int i=0; i < x2; i++){
 					product = plus(product, x1);
 			}
 		  }
-		
+		if (x1 < 0 || x2 < 0){
+			product = minus(product, x1);
+		}
 		return product;
 	}
 	// Returns x^n (for n >= 0)
@@ -77,16 +94,27 @@ public class Algebra {
 		if(x==0){
 			return 0;
 		
-		}   else{
-			    if(n==0){
-			    return 1;
-
-		}   else{
-		    	for(int i=0; i<n; i++){
-				power = times(power, x);
-			}
-		  }
-		}
+		}  else{
+			  if(n==0){
+			  return 1;
+			  }
+		    }
+			      if(x>0){
+		    	    for(int i=0; i<n; i++){
+				        power = times(power, x);
+			        }
+			      }	
+		          
+			    	if(x<0 && mod(n,2)==0){
+					power = times(power, x);
+				    }
+			          else{
+				        if(x<0 && mod(n,2)==1){
+				    	power = times(power, x);
+						power = times(power, -1);
+			        	}
+		              }
+		
 		return power;
 	}
 
