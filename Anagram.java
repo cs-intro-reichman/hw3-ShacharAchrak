@@ -30,8 +30,8 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		str1 = preProcess(str1);
-		str2 = preProcess(str2);
+		str1 = preProcess(str1).replace(" ", "");
+		str2 = preProcess(str2).replace(" ", "");
 
 		if(str1.length() != str2.length()){
 			return false;
@@ -39,15 +39,9 @@ public class Anagram {
 		
 		int [] counter = new int[26];
 			for(int i = 0; i < str1.length(); i++){
-				if(str1.charAt(i) !=' '){
 				counter[str1.charAt(i) - 'a'] ++;
-			}
-		}
-				for(int i = 0; i < str2.length(); i++){
-					if(str2.charAt(i) !=' '){
-					counter[str2.charAt(i) - 'a'] --;
-				}
-			}
+				counter[str2.charAt(i) - 'a'] --;
+		}	
 						for(int count : counter){
 				        	if(count != 0){
                             return false;
@@ -64,10 +58,12 @@ public class Anagram {
         String result = "";
 		for(int i = 0; i < str.length(); i++){
 			char c = str.charAt(i);
-			if((c >='a'&& c <= 'z') || (c >='A' && c <= 'Z')){
+			if((c >='a' && c <= 'z') || (c >='A' && c <= 'Z')){
                 if(c>= 'A'&& c<='Z'){
 					c = (char) (c+'a'-'A');
 				}
+				result += c;
+			} else if(c == ' '){
 				result += c;
 			}
 		}
@@ -78,7 +74,7 @@ public class Anagram {
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
 		char[] chars = str.toCharArray();
-            for(int i=0; i<str.length(); i++){
+            for(int i=0; i < str.length(); i++){
 					int randomPlace = (int)(Math.random()*chars.length);
 				char temp = chars[i];
 				chars[i] = chars[randomPlace];
